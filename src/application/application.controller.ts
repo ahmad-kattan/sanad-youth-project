@@ -61,6 +61,19 @@ export class ApplicationController {
     return this.applicationService.findOne(id, currentUser);
   }
 
+  
+@Get(':id/status')
+@Roles(UserRole.ADMIN, UserRole.STUDENT)
+trackApplicationStatus(
+  @Param('id', ParseIntPipe) id: number,
+  @CurrentUser() currentUser: currentUserDto,
+) {
+  return this.applicationService.trackApplicationStatus(
+    id,
+    currentUser,
+  );
+}
+
   @Patch(':id/cv')
   @Roles(UserRole.STUDENT)
   @UseInterceptors(FileInterceptor('cv', applicationMulterOptions))

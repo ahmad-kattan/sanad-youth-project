@@ -443,6 +443,42 @@ export class ApplicationService {
   }
 }
 
+async trackApplicationStatus(id: number,currentUser: currentUserDto) {
+  const application = await this.prisma.application.findUnique({
+    where: { id },
+    select: {
+      id: true,
+      studentId: true,
+      status: true,
+      program: {
+        select: {
+          id: true,
+          title: true,
+        },
+      },
+    },
+  });
+
+  if (!application) {
+    throw new NotFoundException('Application not found');
+  }
+
+  if (
+    currentUser.role !== UserRole.ADMIN &&
+    application.studentId !== currentUser.userId
+  ) {
+    throw new ForbiddenException(
+      'You are not allowed to track this application',
+    );
+  }
+
+  return {
+    applicationId: application.id,
+    program: application.program,
+    status: application.status,
+  };
+}
+
 
 
  private isPrismaError(error: unknown, code: string): boolean {
