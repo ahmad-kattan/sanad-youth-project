@@ -1,0 +1,7 @@
+DATABASE_URL="postgresql://postgres:your-password@localhost:5432/project-name"
+
+JWT_SECRET=
+JWT_EXPIRES_IN=
+
+ADMIN_EMAIL=
+ADMIN_PASSWORD=

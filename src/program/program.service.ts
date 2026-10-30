@@ -95,7 +95,6 @@ export class ProgramService {
      const cacheKey = `programs:list:${JSON.stringify({
     page,
     limit,
-    search: normalizedSearch,
     sortBy,
     sortOrder,
   })}`;
