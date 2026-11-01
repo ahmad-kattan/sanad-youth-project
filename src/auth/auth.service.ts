@@ -20,14 +20,14 @@ export class AuthService {
 
         if (!user)
         {
-        throw new UnauthorizedException('Invalid phone or password');
+        throw new UnauthorizedException('Invalid Email or password');
         }
 
         const isPasswordValid = await bcrypt.compare
         (loginDto.password,user.password);
         if (!isPasswordValid)
         {     
-        throw new UnauthorizedException('Invalid phone or password');
+        throw new UnauthorizedException('Invalid Email or password');
         }
         const session = await this.prisma.session.create({
             data:{
